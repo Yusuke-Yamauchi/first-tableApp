@@ -12,6 +12,8 @@ class TableViewController: UITableViewController {
     
         var names: [String] = []
 
+    //rootで何行目を押したかを呼び出し
+    
     
     
 //    @IBAction func backButton(_ sender: UIButton) {
@@ -40,13 +42,14 @@ class TableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         
-       //print(UserDefaults.standard.object(forKey:"setRootNumKey"))
-        //print(UserDefaults.standard.object(forKey:"setkey"))
-        if UserDefaults.standard.object(forKey:"setkey") != nil{
-            names = UserDefaults.standard.object(forKey:"setkey") as! [String]
+        //Rootで何行目を参照したかを呼び出す｡※外に定義するとうまくいかない
+        let RootRow = UserDefaults.standard.object(forKey:"setRootNumKey")!
+    
+        if UserDefaults.standard.object(forKey:"setkey\(RootRow)") != nil{
+            names = UserDefaults.standard.object(forKey:"setkey\(RootRow)") as! [String]
         }
       
-            
+            print(RootRow)
         tableView.reloadData()
         
 }
@@ -89,11 +92,14 @@ UserDefaults.standard.set(indexPath.row, forKey:"setNumKey")
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        //Rootで何行目を参照したかを呼び出す｡※外に定義するとうまくいかない
+        let RootRow = UserDefaults.standard.object(forKey:"setRootNumKey")!
+        
         if editingStyle == .delete {
             // Delete the row from the data source
             names.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            UserDefaults.standard.set(names, forKey:"setkey")
+            UserDefaults.standard.set(names, forKey:"setkey\(RootRow)")
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    

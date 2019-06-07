@@ -32,12 +32,7 @@ class RootTableViewController: UITableViewController {
         return 0
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // タップされたセルの行番号を出力
-        let  cellNumber : Int = indexPath.row
-        UserDefaults.standard.set(cellNumber, forKey:"setRootNumKey")
-    }
+
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
